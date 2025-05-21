@@ -8,7 +8,7 @@ describe('Trade Model Test', () => {
 
     beforeAll(async () => {
         // Connect to test database
-        await mongoose.connect(process.env.MONGODB_URI_TEST || 'mongodb://localhost:27017/trade_test');
+        await mongoose.connect(process.env.MONGODB_URI_TEST || 'mongodb://mongodb:27017/trade_test');
     });
 
     afterAll(async () => {

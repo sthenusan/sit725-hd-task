@@ -43,7 +43,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-        mongoUrl: process.env.MONGODB_URI || 'mongodb://localhost:27017/barter-trading',
+        mongoUrl: process.env.MONGODB_URI || 'mongodb://mongodb:27017/barter-trading',
         collectionName: 'sessions'
     }),
     cookie: {
@@ -108,6 +108,14 @@ app.use('/api/trades', require('./routes/tradeRoutes'));
 app.use('/api/items', require('./routes/itemRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/ratings', require('./routes/ratingRoutes'));
+
+// New API route for student information
+app.get('/api/student', (req, res) => {
+  res.json({
+    name: "Thenusan Santhirakumar",
+    studentId: "S223228828"
+  });
+});
 
 // Web Routes
 app.use('/trades', require('./routes/tradeRoutes'));

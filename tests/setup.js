@@ -1,6 +1,6 @@
 // Set test environment
 process.env.NODE_ENV = 'test';
-process.env.MONGODB_URI_TEST = 'mongodb://localhost:27017/trade_system_test';
+process.env.MONGODB_URI_TEST = 'mongodb://mongodb:27017/trade_system_test';
 process.env.SESSION_SECRET = 'test_session_secret';
 process.env.EMAIL_SERVICE = 'gmail';
 process.env.EMAIL_USER = 'test@example.com';
