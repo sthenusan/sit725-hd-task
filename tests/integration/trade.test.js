@@ -6,7 +6,7 @@ const Item = require('../../models/Item');
 const Trade = require('../../models/Trade');
 
 // Set default test database URI if not provided
-const TEST_DB_URI = process.env.MONGODB_URI_TEST || 'mongodb://localhost:27017/trade_system_test';
+const TEST_DB_URI = process.env.MONGODB_URI_TEST || 'mongodb://mongodb:27017/trade_system_test';
 
 describe('Trade Integration Tests', () => {
     let initiator;

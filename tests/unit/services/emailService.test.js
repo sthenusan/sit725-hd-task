@@ -10,7 +10,7 @@ describe('Email Service Test', () => {
         await mongoose.disconnect();
         
         // Connect to test database
-        await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/trade_system_test', {
+        await mongoose.connect(process.env.MONGODB_URI || 'mongodb://mongodb:27017/trade_system_test', {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
@@ -85,7 +85,7 @@ describe('Email Service Test', () => {
         await mongoose.disconnect();
         
         // Connect to test database
-        await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/trade_system_test', {
+        await mongoose.connect(process.env.MONGODB_URI || 'mongodb://mongodb:27017/trade_system_test', {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });
@@ -160,7 +160,7 @@ describe('Email Service Test', () => {
         await mongoose.disconnect();
         
         // Connect to test database
-        await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/trade_system_test', {
+        await mongoose.connect(process.env.MONGODB_URI || 'mongodb://mongodb:27017/trade_system_test', {
             useNewUrlParser: true,
             useUnifiedTopology: true
         });

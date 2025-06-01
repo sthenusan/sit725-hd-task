@@ -110,6 +110,15 @@ app.use('/trades', require('./routes/tradeRoutes'));
 app.use('/items', require('./routes/itemRoutes'));
 app.use('/notifications', require('./routes/notificationRoutes'));
 
+// New API route for student informationAdd commentMore actions
+app.get('/api/student', (req, res) => {
+  res.json({
+    name: "Thenusan Santhirakumar",
+    studentId: "S223228828"
+  });
+});
+
+
 // 404 handler
 app.use((req, res, next) => {
     if (req.accepts('html')) {
