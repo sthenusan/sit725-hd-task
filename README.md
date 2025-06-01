@@ -1,200 +1,148 @@
-# Trade System
+# Barter Trading System
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
+## Overview
+A barter trading system that enables users to trade items with each other. The system includes user authentication, item management, trade creation, and messaging features.
 
-## 📋 Overview
+## Features
+- User Authentication (Register, Login, Profile Management)
+- Item Management (Create, Update, Delete Items)
+- Trade Creation and Management
+- Real-time Messaging within Trades
+- Trade Status Updates
+- User Ratings and Reviews
 
-Trade System is a modern barter trading platform that enables users to exchange items with each other in a secure and user-friendly environment. The system facilitates item listings, trade proposals, negotiations, and trade completion with a focus on user experience and security.
+## Technologies Used
+- Node.js & Express.js
+- MongoDB & Mongoose
+- Docker
+- Jest & Cypress for Testing
 
-## ✨ Features
+## Docker Setup and Running Instructions
 
-### 👤 User Management
-- **Authentication & Security**
-  - User registration and login
-  - Secure password management
-  - Session handling
-  - Protected routes
+### Prerequisites
+- Docker installed on your system
+- Docker Compose (optional)
 
-- **Profile Management**
-  - Customizable user profiles
-  - User ratings and feedback system
-  - Activity tracking
-  - Profile picture upload
+### Step 1: Create Docker Network
+Create a Docker network for container communication:
+```bash
+docker network create my-network
+```
 
-### 🎯 Item Management
-- **Listing Features**
-  - Create, edit, and delete item listings
-  - Multiple image uploads (up to 5 images)
-  - Item categorization
-  - Search and filter functionality
+### Step 2: Start MongoDB Container
+Start the MongoDB container:
+```bash
+docker run --network my-network \
+  -p 27017:27017 \
+  --name mongodb \
+  mongo
+```
 
-- **Item Status**
-  - Available
-  - Pending
-  - Traded
-  - Location tracking
-  - Condition and description management
+### Step 3: Build Application Image
+Build the Docker image for the application:
+```bash
+docker build -t thenusan/barter-trading-system .
+```
 
-### 🔄 Trade System
-- **Trade Features**
-  - Create trade proposals
-  - Multiple items in single trade
-  - Trade status management
-  - Trade history tracking
+### Step 4: Run Application Container
+Run the application container with MongoDB connection:
+```bash
+docker run -p 3000:3000 \
+  --network my-network \
+  -e MONGODB_URI=mongodb://mongodb:27017/barter-trading \
+  thenusan/barter-trading-system
+```
 
-- **Trade Statuses**
-  - Pending
-  - Accepted
-  - Rejected
-  - Completed
-  - Cancelled
+### Step 5: Student API
+The application includes a simple student API endpoint that returns student information:
 
-### 💬 Communication
-- **Messaging System**
-  - In-trade messaging
-  - User-to-user messaging
-  - Real-time notifications
+```bash
+# Access the student API endpoint
+curl http://localhost:3000/api/student
+```
 
-- **Activity Notifications**
-  - Trade proposals
-  - Trade acceptances
-  - Trade rejections
-  - Trade completions
-  - Trade cancellations
+Expected response:
+```json
+{
+    "name": "Thenusan Santhirakumar",
+    "studentId": "S223228828"
+}
+```
 
-### 📊 Dashboard
-- **User Dashboard**
-  - Personalized activity feed
-  - Quick action buttons
-  - Trade status overview
-  - Item management shortcuts
+### Step 6: Verify Setup
+1. Check MongoDB connection:
+```bash
+docker exec -it mongodb mongosh --eval "db.runCommand({ ping: 1 })"
+```
 
-### 🛡️ Security
-- **Security Features**
-  - Secure authentication
-  - Protected routes
-  - Input validation
-  - File upload security
-  - Session management
+2. Access the main application:
+```
+http://localhost:3000
+```
 
-## 🛠️ Technical Stack
+3. Test the student API:
+```
+http://localhost:3000/api/student
+```
 
-### Backend
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose ODM
+### Troubleshooting
 
-### Frontend
-- EJS Templates
-- Material Design
-- Responsive Design
-- JavaScript/jQuery
+#### MongoDB Connection Issues
+1. Check MongoDB container:
+```bash
+docker ps | grep mongodb
+```
 
-### Database
-- MongoDB integration
-- Efficient data modeling
-- Indexed queries
-- Data validation
+2. Check network:
+```bash
+docker network inspect my-network
+```
 
-### File Management
-- Secure file uploads
-- Image processing
-- File type validation
-- Storage optimization
+3. View MongoDB logs:
+```bash
+docker logs mongodb
+```
 
-### API
-- RESTful endpoints
-- JSON responses
-- Error handling
-- Rate limiting
+#### Application Issues
+1. Check application logs:
+```bash
+docker logs <container_id>
+```
 
-## 📋 Requirements
+2. Verify environment variables:
+```bash
+docker exec -it <container_id> env | grep MONGODB_URI
+```
 
-### System Requirements
-- Node.js v14 or higher
-- MongoDB v4.4 or higher
-- Modern web browser
-- Internet connection
+### Cleanup
+To clean up Docker resources:
+```bash
+# Stop and remove containers
+docker stop mongodb
+docker stop <app_container_id>
+docker rm mongodb
+docker rm <app_container_id>
 
-### Development Requirements
-- Git
-- npm or yarn
-- Code editor
-- MongoDB Compass (optional)
+# Remove network
+docker network rm my-network
 
-## 🚀 Installation
+# Remove image
+docker rmi thenusan/barter-trading-system
+```
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/trade-system.git
-   cd trade-system
-   ```
+## Testing
+Run tests using:
+```bash
+npm test
+```
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+For serial test execution (recommended):
+```bash
+npm test -- --runInBand
+```
 
-3. **Environment Setup**
-   Create a `.env` file in the root directory:
-   ```env
-   PORT=3000
-   MONGODB_URI=mongodb://localhost:27017/trade_system
-   SESSION_SECRET=your_session_secret
-   ```
+## Contributing
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-4. **Start the server**
-   ```bash
-   npm start
-   ```
-
-## 🔧 Configuration
-
-### Database Configuration
-- MongoDB connection settings in `config/db.js`
-- Session store configuration in `app.js`
-
-### File Upload Configuration
-- Image upload settings in `routes/itemRoutes.js`
-- File size limits and allowed types
-
-## 📈 Future Enhancements
-
-- [ ] Real-time notifications
-- [ ] Mobile application
-- [ ] Advanced search filters
-- [ ] Trade analytics
-- [ ] User verification system
-- [ ] Payment integration
-- [ ] Automated trade matching
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👥 Authors
-
-- Your Name - Initial work
-
-## 🙏 Acknowledgments
-
-- Material Design for UI components
-- MongoDB for database
-- Express.js for backend framework
-
-## 📞 Support
-
-For support and bug reports, please contact the development team or create an issue in the repository.
-
----
-*Last Updated: May 28, 2025*
+## License
+This project is licensed under the MIT License.
