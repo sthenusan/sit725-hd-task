@@ -103,6 +103,15 @@ passport.deserializeUser(async (id, done) => {
     }
 });
 
+// Student API endpoint
+app.get('/api/student', (req, res) => {
+    console.log('Student API endpoint was called');
+    res.json({
+        name: "Thenusan Santhirakumar",
+        studentId: "S223228828"
+    });
+});
+
 // Routes
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/userRoutes'));
@@ -110,14 +119,11 @@ app.use('/trades', require('./routes/tradeRoutes'));
 app.use('/items', require('./routes/itemRoutes'));
 app.use('/notifications', require('./routes/notificationRoutes'));
 
-// New API route for student informationAdd commentMore actions
-app.get('/api/student', (req, res) => {
-  res.json({
-    name: "Thenusan Santhirakumar",
-    studentId: "S223228828"
-  });
+// Debug middleware to log all requests
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    next();
 });
-
 
 // 404 handler
 app.use((req, res, next) => {
